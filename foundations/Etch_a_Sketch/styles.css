@@ -1,0 +1,20 @@
+.square {
+    width: 40px;
+    height: 40px;
+    background-color: rgb(0, 0, 0);
+}
+
+.square:hover {
+    background-color: aliceblue;
+}
+
+.line {
+    display: flex;
+}
+
+#container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
