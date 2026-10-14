@@ -3,73 +3,94 @@ let computerScore = 0;
 
 function computerWin () {
   computerScore++;
-  console.log("computer wins");
+  return("computer wins");
 }
 
 function humanWin () {
   humanScore++;
-  console.log("human wins");
+  return("human wins");
 }
 
 function noWin () {
-  console.log("no one win");
+  return("no one win");
 }
+
+/*
+1: rock;
+2: paper;
+3: scissors;
+*/
 
 function playRound (humanChoice, computerChoice, humanWin, computerWin, noWin) {
   if (humanChoice === computerChoice) {
-    noWin();
+    return noWin();
   }
   else if (humanChoice > computerChoice) {
     if (humanChoice > computerChoice + 1) {
-      computerWin();
+      return computerWin();
     }
     else {
-      humanWin();
+      return humanWin();
     }
   }
   else {
     if (humanChoice < computerChoice - 1) {
-      humanWin();
+      return humanWin();
     }
     else {
-      computerWin();
+      return computerWin();
     }
   }
 }
-function getHumanChoice () {
-  return parseInt(prompt("输入1：剪刀；2：石头；3：布"));
-}
+
+let humanChoice = 0;
+let computerChoice = 0;
 
 function getComputerChoice () {
-  return Math.ceil(Math.random() * 3);
+  computerChoice = Math.ceil(Math.random() * 3);
 }
 
 function justify () {
   if (humanScore > computerScore) {
-    console.log("Human wins at last!");
+    return("Human wins at last!");
   }
   else if (humanScore < computerScore) {
-    console.log("Computer wins at last!");
+    return("Computer wins at last!");
   }
   else {
-    console.log("No one wins at last!");
+    return("No one wins at last!");
   }
 }
 
-function gamePlay () {
-  console.log("5轮游戏开始：");
-  let computerChoice = 0;
-  let humanChoice = 0;
+humanScoreSpan = document.getElementById("humanScore");
+computerScoreSpan = document.getElementById("computerScore");
+statusText = document.getElementById("status");
 
-  for (let i = 1; i <= 5; i++) {
-    computerChoice = getComputerChoice();
-    humanChoice = getHumanChoice();
-    console.log("第" + i + "轮：\nHuman: " + humanChoice + "\nComputer: " + computerChoice + "\n");
-    playRound(humanChoice, computerChoice, humanWin, computerWin, noWin);
-    console.log("当前分数：\nHuman: " + humanScore + "\nComputer: " + computerScore + "\n");
-  }
-  
-  justify();
+function fresh() {
+  res = playRound(humanChoice, computerChoice, humanWin, computerWin, noWin);
+  humanScoreSpan.textContent = humanScore;
+  computerScoreSpan.textContent = computerScore;
+  statusText.textContent = res;
 }
 
-gamePlay();
+rock = document.getElementById("rock");
+scissors = document.getElementById("scissors");
+paper = document.getElementById("paper");
+
+rock.addEventListener("click", () => {
+  humanChoice = 1;
+  getComputerChoice();
+  fresh();
+})
+
+scissors.addEventListener("click", () => {
+  humanChoice = 3;
+  getComputerChoice();
+  fresh();
+})
+
+paper.addEventListener("click", () => {
+  humanChoice = 2;
+  getComputerChoice();
+  fresh();
+})
